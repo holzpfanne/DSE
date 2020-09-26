@@ -4,11 +4,11 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         halfadder
+-- ENTITY:         tb_fulladder
 --
--- FILENAME:       halfadder_rtl_cfg.vhd
+-- FILENAME:       tb_fulladder_.vhd
 -- 
--- ARCHITECTURE:   rtl
+-- ARCHITECTURE:   sim
 -- 
 -- ENGINEER:       Roland Höller
 --
@@ -18,8 +18,8 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the configuration for the entity halfadder and the
---                 architecture rtl.
+-- DESCRIPTION:    This is the entity declaration of the fulladder testbench
+--                 for the fulladder VHDL class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -36,7 +36,9 @@
 --
 -------------------------------------------------------------------------------
 
-configuration halfadder_rtl_cfg of halfadder is
-  for rtl        -- architecture rtl is used for entity halfadder
-  end for;
-end halfadder_rtl_cfg;
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity tb_busses is
+end tb_busses;
+

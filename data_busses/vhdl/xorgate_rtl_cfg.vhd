@@ -4,22 +4,22 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         fulladder
+-- ENTITY:         xorgate
 --
--- FILENAME:       fulladder_.vhd
+-- FILENAME:       xorgate_rtl_cfg.vhd
 -- 
--- ARCHITECTURE:   struc
+-- ARCHITECTURE:   rtl
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
--- DATE:           30. June 2000
+-- DATE:           September
 --
 -- VERSION:        1.0
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the entity declaration of the fulladder
---                 VHDL class example.
+-- DESCRIPTION:    This is the configuration for the entity xorgate and the
+--                 architecture rtl.
 --
 --
 -------------------------------------------------------------------------------
@@ -32,18 +32,11 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 
-library IEEE;
-use IEEE.std_logic_1164.all;
-
-entity fulladder is
-  port (a_i :   in std_logic;      -- first data bit
-        b_i :   in std_logic;      -- second data bit
-        cy_i :  in std_logic;      -- carry input
-        cy_o :  out std_logic;     -- carry output
-        sum_o : out std_logic);    -- sum output
-end fulladder;
-
+configuration xorgate_rtl_cfg of xorgate is
+  for rtl        -- architecture rtl is used for entity xorgate
+  end for;
+end xorgate_rtl_cfg;

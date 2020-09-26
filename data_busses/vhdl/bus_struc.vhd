@@ -4,9 +4,9 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         orgate
+-- ENTITY:         fulladder
 --
--- FILENAME:       orgate_rtl_cfg.vhd
+-- FILENAME:       fulladder_struc.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
@@ -18,8 +18,8 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the configuration for the entity oragate and the
---                 architecture rtl.
+-- DESCRIPTION:    This is the architecture struc of the fulladder VHDL
+--                 class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -36,7 +36,35 @@
 --
 -------------------------------------------------------------------------------
 
-configuration orgate_rtl_cfg of orgate is
-  for rtl        -- architecture rtl is used for entity orgate
-  end for;
-end orgate_rtl_cfg;
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+architecture struc of data_bus is
+
+  component or_and_gate
+    port (a_i :    in  std_logic_vector(31 downto 0);
+          b_i :    in  std_logic_vector(31 downto 0);
+          d_o :  out std_logic_vector(31 downto 0));
+  end component;
+
+  component xorgate
+    port (a_i :    in  std_logic;
+          b_i :    in  std_logic;
+          xor_o :   out std_logic);
+  end component;
+begin
+
+  -- map ports
+  xor_gate : xorgate
+  port map              
+    (a_i   => c_i,
+     b_i   => d_i,
+     xor_o => e_o);
+
+  or_and : or_and_gate
+  port map
+    (a_i   => a_i,
+     b_i   => b_i,
+     d_o   => d_o); 
+   
+end struc;

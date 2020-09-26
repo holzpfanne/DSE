@@ -1,25 +1,25 @@
 -------------------------------------------------------------------------------
 --                                                                      
---                        Fulladder VHDL Class Example
+--                        data busses VHDL Class Example
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         halfadder
+-- ENTITY:         orgate
 --
--- FILENAME:       halfadder_rtl.vhd
+-- FILENAME:       orgate_.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
--- DATE:           30. June 2000
+-- DATE:           September 2020
 --
 -- VERSION:        1.0
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the architecture rtl of the halfadder submodule
---                 of the fulladder VHDL class example.
+-- DESCRIPTION:    This is the entity declaration of the orgate submodule
+--                 of the data busses VHDL class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -32,15 +32,16 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-architecture rtl of halfadder is
-begin
-  sum_o <= a_i xor b_i;       -- sum of the data bits
-  cy_o  <= a_i and b_i;       -- carry of the addition
-end rtl;
+entity or_and_gate is
+  port (a_i :   in std_logic_vector(31 downto 0);      -- operand a
+        b_i :   in std_logic_vector(31 downto 0);      -- operand b
+        d_o :  out std_logic_vector(31 downto 0));    -- output
+end or_and_gate;
+

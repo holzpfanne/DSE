@@ -39,75 +39,62 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-architecture sim of tb_fulladder is
+architecture sim of tb_busses is
 
-  component fulladder
-  port (a_i :   in std_logic;      -- first data bit
-        b_i :   in std_logic;      -- second data bit
-        cy_i :  in std_logic;      -- carry input
-        cy_o :  out std_logic;     -- carry output
-        sum_o : out std_logic);    -- sum output
+  component data_bus
+  port (a_i :   in std_logic_vector(31 downto 0);      -- first data bus
+        b_i :   in std_logic_vector(31 downto 0);      -- second data bus
+        c_i :   in std_logic;      
+        d_i :   in std_logic;
+        d_o :  out std_logic_vector(31 downto 0);     -- vector output
+        e_o :  out std_logic);    -- xor sum output
   end component;
   
   -- Declare the signals used stimulating the design's inputs.
-  signal a_i : std_logic;
-  signal b_i : std_logic;
-  signal cy_i : std_logic;
-  signal sum_o : std_logic;
-  signal cy_o : std_logic;
+  signal a_i : std_logic_vector(31 downto 0);
+  signal b_i : std_logic_vector(31 downto 0);
+  signal c_i : std_logic;
+  signal d_i : std_logic;
+  signal d_o : std_logic_vector(31 downto 0);
+  signal e_o : std_logic;
   
 begin
 
-  -- Instantiate the fulladder design for testing
-  i_fulladder : fulladder
+  -- Instantiate the data_bus design for testing
+  i_data_bus : data_bus
   port map              
     (a_i   => a_i,
      b_i   => b_i,
-     cy_i  => cy_i,
-     cy_o  => cy_o,
-     sum_o => sum_o);
+     c_i   => c_i,
+     d_i   => d_i,
+     d_o   => d_o,
+     e_o   => e_o);
 
   p_test : process
     begin
       -- ZERO
-      a_i <= '0';
-      b_i <= '0';
-      cy_i <= '0';
+      a_i <= "00000000000000000000000000000000";
+      b_i <= "00000000000000000000000000000000";
+      c_i <= '0';
+      d_i <= '0';
       wait for 200 ns;
       -- ONE
-      a_i <= '1';
-      b_i <= '0';
-      cy_i <= '0';
+      a_i <= "10000000000000000000000000000001";
+      b_i <= "10000000000000000000000000000000";
+      c_i <= '1';
+      d_i <= '0';
       wait for 200 ns;
       -- TWO
-      a_i <= '0';
-      b_i <= '1';
-      cy_i <= '0';
+      a_i <= "10000000000000000000000000000001";
+      b_i <= "00000000000000000000000000000001";
+      c_i <= '0';
+      d_i <= '1';
       wait for 200 ns;
       -- THREE
-      a_i <= '1';
-      b_i <= '1';
-      cy_i <= '0';
-      wait for 200 ns;
-      -- FOUR
-      a_i <= '0';
-      b_i <= '0';
-      cy_i <= '1';
-      wait for 200 ns;
-      -- FIVE
-      a_i <= '1';
-      b_i <= '0';
-      cy_i <= '1';
-      wait for 200 ns;
-      -- SIX
-      a_i <= '0';
-      b_i <= '1';
-      cy_i <= '1';
-      wait for 200 ns;
-      -- SEVEN
-      a_i <= '1';
-      b_i <= '1';
-      cy_i <= '1';
+      a_i <= "11111111111111111111111111111111";
+      b_i <= "00000000000000000000000000000000";
+      c_i <= '1';
+      d_i <= '1';
       wait for 200 ns;
     end process;
 

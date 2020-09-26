@@ -4,9 +4,9 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         halfadder
+-- ENTITY:         orgate
 --
--- FILENAME:       halfadder_.vhd
+-- FILENAME:       orgate_rtl_cfg.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
@@ -18,8 +18,8 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the entity declaration of the halfadder submodule
---                 of the fulladder VHDL class example.
+-- DESCRIPTION:    This is the configuration for the entity oragate and the
+--                 architecture rtl.
 --
 --
 -------------------------------------------------------------------------------
@@ -36,12 +36,7 @@
 --
 -------------------------------------------------------------------------------
 
-library IEEE;
-use IEEE.std_logic_1164.all;
-
-entity halfadder is
-  port (a_i :   in std_logic;          -- first data bit
-        b_i :   in std_logic;          -- second data bit
-        sum_o : out std_logic;         -- sum of the data bits
-        cy_o :  out std_logic);        -- carry of the addition
-end halfadder;
+configuration or_and_gate_rtl_cfg of or_and_gate is
+  for rtl        -- architecture rtl is used for entity or_and_gate
+  end for;
+end or_and_gate_rtl_cfg;

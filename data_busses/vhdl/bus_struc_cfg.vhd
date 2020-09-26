@@ -4,22 +4,22 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         tb_fulladder
+-- ENTITY:         data_bus
 --
--- FILENAME:       tb_fulladder_.vhd
+-- FILENAME:       data_bus_struc_cfg.vhd
 -- 
--- ARCHITECTURE:   sim
+-- ARCHITECTURE:   struc
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
--- DATE:           30. June 2000
+-- DATE:           September 2020
 --
 -- VERSION:        1.0
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the entity declaration of the fulladder testbench
---                 for the fulladder VHDL class example.
+-- DESCRIPTION:    This is the configuration for the entity data_bus and the
+--                 architecture struc.
 --
 --
 -------------------------------------------------------------------------------
@@ -36,9 +36,7 @@
 --
 -------------------------------------------------------------------------------
 
-library IEEE;
-use IEEE.std_logic_1164.all;
-
-entity tb_fulladder is
-end tb_fulladder;
-
+configuration bus_struc_cfg of data_bus is
+  for struc        -- architecture struc is used for entity data_bus
+  end for;
+end bus_struc_cfg;

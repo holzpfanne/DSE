@@ -1,25 +1,25 @@
 -------------------------------------------------------------------------------
 --                                                                      
---                        Fulladder VHDL Class Example
+--                        busses VHDL Class Example
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         tb_fulladder
+-- ENTITY:         tb_busses
 --
--- FILENAME:       tb_fulladder_sim_cfg.vhd
+-- FILENAME:       tb_busses_sim_cfg.vhd
 -- 
 -- ARCHITECTURE:   sim
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
--- DATE:           30. June 2000
+-- DATE:           Septmber 2020
 --
 -- VERSION:        1.0
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the configuration for the fulladder testbench
---                 of the fulladder VHDL class example.
+-- DESCRIPTION:    This is the configuration for the busses testbench
+--                 of the busses VHDL class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -32,16 +32,16 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-configuration tb_fulladder_sim_cfg of tb_fulladder is
+configuration tb_busses_sim_cfg of tb_busses is
   for sim
-    for i_fulladder : fulladder
-      use configuration work.fulladder_struc_cfg;
+    for i_data_bus : data_bus
+      use configuration work.bus_struc_cfg;
     end for;
   end for;
-end tb_fulladder_sim_cfg;
+end tb_busses_sim_cfg;

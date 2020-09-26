@@ -4,9 +4,9 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         orgate
+-- ENTITY:         or_and_gate
 --
--- FILENAME:       orgate_rtl.vhd
+-- FILENAME:       or_and_gate_rtl.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
@@ -18,7 +18,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the architecture rtl of the orgate submodule
+-- DESCRIPTION:    This is the architecture rtl of the or_and_gate submodule
 --                 of the fulladder VHDL class example.
 --
 --
@@ -39,8 +39,27 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-architecture rtl of orgate is
+architecture rtl of or_and_gate is
+  signal re_or   : std_logic_vector(31 downto 0);
+  signal re_and  : std_logic_vector(31 downto 0);
+
+  signal re_or_mask   : std_logic_vector(31 downto 0);
+  signal re_and_mask  : std_logic_vector(31 downto 0);
+
+  signal mask_or : std_logic_vector(31 downto 0);
+  signal mask_and: std_logic_vector(31 downto 0);
 begin
-  -- generate the output or_o
-  or_o <= a_i or b_i;
+  --d_o <= a_i and b_i;
+
+  mask_or <= "00000000000000001111111111111111";
+  mask_and <= "11111111111111110000000000000000";
+  
+  re_or <= a_i or b_i;
+  re_and <= a_i and b_i;
+  
+  re_or_mask <= re_or and mask_or;
+  re_and_mask <= re_and and mask_and;
+
+  d_o <= re_or_mask or re_and_mask;
+
 end rtl;

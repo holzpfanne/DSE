@@ -6,7 +6,7 @@
 --                                                                      
 -- ENTITY:         fulladder
 --
--- FILENAME:       fulladder_struc_cfg.vhd
+-- FILENAME:       fulladder_.vhd
 -- 
 -- ARCHITECTURE:   struc
 -- 
@@ -18,8 +18,8 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the configuration for the entity fulladder and the
---                 architecture struc.
+-- DESCRIPTION:    This is the entity declaration of the fulladder
+--                 VHDL class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -36,7 +36,16 @@
 --
 -------------------------------------------------------------------------------
 
-configuration fulladder_struc_cfg of fulladder is
-  for struc        -- architecture struc is used for entity fulladder
-  end for;
-end fulladder_struc_cfg;
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity data_bus is
+  port (a_i :   in std_logic_vector(31 downto 0);      -- first data bus
+        b_i :   in std_logic_vector(31 downto 0);      -- second data bus
+        d_o :   out std_logic_vector(31 downto 0);      -- data bus out
+
+        c_i :  in std_logic;     -- first xor
+        d_i :  in std_logic;    -- second xor
+        e_o : out std_logic);
+end data_bus;
+

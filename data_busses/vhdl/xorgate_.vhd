@@ -4,9 +4,9 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         orgate
+-- ENTITY:         halfadder
 --
--- FILENAME:       orgate_.vhd
+-- FILENAME:       halfadder_.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
@@ -18,7 +18,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the entity declaration of the orgate submodule
+-- DESCRIPTION:    This is the entity declaration of the halfadder submodule
 --                 of the fulladder VHDL class example.
 --
 --
@@ -39,9 +39,8 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-entity orgate is
-  port (a_i :   in std_logic;      -- operand a
-        b_i :   in std_logic;      -- operand b
-        or_o :  out std_logic);    -- output
-end orgate;
-
+entity xorgate is
+  port (a_i :   in std_logic;          -- first data bit
+        b_i :   in std_logic;          -- second data bit
+        xor_o : out std_logic);         -- resault of the data bits
+end xorgate;
