@@ -4,9 +4,9 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         orgate
+-- ENTITY:         or_and_gate
 --
--- FILENAME:       orgate_.vhd
+-- FILENAME:       or_and_gate_.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
@@ -18,7 +18,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the entity declaration of the orgate submodule
+-- DESCRIPTION:    This is the entity declaration of the orgate_an submodule
 --                 of the data busses VHDL class example.
 --
 --

@@ -4,9 +4,9 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         halfadder
+-- ENTITY:         xorgate
 --
--- FILENAME:       halfadder_rtl.vhd
+-- FILENAME:       xorgate_rtl.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
@@ -18,8 +18,8 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the architecture rtl of the halfadder submodule
---                 of the fulladder VHDL class example.
+-- DESCRIPTION:    This is the architecture rtl of the xorgate submodule
+--                 of the data busses VHDL class example.
 --
 --
 -------------------------------------------------------------------------------

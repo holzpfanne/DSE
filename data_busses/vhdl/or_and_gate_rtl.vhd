@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --                                                                      
---                        Fulladder VHDL Class Example
+--                        data busses VHDL Class Example
 --  
 -------------------------------------------------------------------------------
 --                                                                      
@@ -10,16 +10,16 @@
 -- 
 -- ARCHITECTURE:   rtl
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
--- DATE:           30. June 2000
+-- DATE:           September 2020
 --
 -- VERSION:        1.0
 --
 -------------------------------------------------------------------------------
 --                                                                      
 -- DESCRIPTION:    This is the architecture rtl of the or_and_gate submodule
---                 of the fulladder VHDL class example.
+--                 of the data busses VHDL class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -32,7 +32,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 

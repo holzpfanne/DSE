@@ -1,25 +1,25 @@
 -------------------------------------------------------------------------------
 --                                                                      
---                        Fulladder VHDL Class Example
+--                        data busses VHDL Class Example
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         tb_fulladder
+-- ENTITY:         tb_busses
 --
--- FILENAME:       tb_fulladder_.vhd
+-- FILENAME:       tb_busses_.vhd
 -- 
 -- ARCHITECTURE:   sim
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan 'König
 --
--- DATE:           30. June 2000
+-- DATE:           September 20202
 --
 -- VERSION:        1.0
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the entity declaration of the fulladder testbench
---                 for the fulladder VHDL class example.
+-- DESCRIPTION:    This is the entity declaration of the data busses testbench
+--                 for the data busses VHDL class example.
 --
 --
 -------------------------------------------------------------------------------
@@ -32,7 +32,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 

@@ -4,13 +4,13 @@
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         orgate
+-- ENTITY:         or_and_gate
 --
--- FILENAME:       orgate_rtl_cfg.vhd
+-- FILENAME:       or_and_gate_rtl_cfg.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
 -- DATE:           30. June 2000
 --
@@ -32,7 +32,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 

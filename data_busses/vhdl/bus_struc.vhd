@@ -1,16 +1,16 @@
 -------------------------------------------------------------------------------
 --                                                                      
---                        Fulladder VHDL Class Example
+--                        data busses VHDL Class Example
 --  
 -------------------------------------------------------------------------------
 --                                                                      
--- ENTITY:         fulladder
+-- ENTITY:         bus
 --
--- FILENAME:       fulladder_struc.vhd
+-- FILENAME:       bus_struc.vhd
 -- 
 -- ARCHITECTURE:   rtl
 -- 
--- ENGINEER:       Roland Höller
+-- ENGINEER:       Jonathan König
 --
 -- DATE:           30. June 2000
 --
@@ -18,7 +18,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- DESCRIPTION:    This is the architecture struc of the fulladder VHDL
+-- DESCRIPTION:    This is the architecture struc of the data busses VHDL
 --                 class example.
 --
 --
@@ -32,7 +32,7 @@
 --
 -------------------------------------------------------------------------------
 --                                                                      
--- CHANGES:        Version 2.0 - RH - 30 June 2000
+-- CHANGES:        -
 --
 -------------------------------------------------------------------------------
 
