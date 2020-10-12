@@ -18,6 +18,7 @@ architecture struc of JKD is
 
   component JK
   port (CLK :   in std_logic;
+        R :   in std_logic;
         J :   in std_logic;
         K :   in std_logic;
         Q :  out std_logic);
@@ -27,15 +28,16 @@ begin
   port map
     (CLK => CLK,
      D_i => D_i,
-     R => R,
-     Q => Q_D);
+     R   => R_D,
+     Q   => Q_D);
 
   i_JK : JK
   port map
     (CLK => CLK,
      J => J,
      k => K,
-     Q => Q_JK);
+     Q => Q_JK,
+     R => R_JK);
   
     
   
