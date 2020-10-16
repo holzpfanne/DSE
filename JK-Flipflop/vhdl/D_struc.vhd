@@ -14,7 +14,8 @@ begin
   begin
     if R = '1' then
       Q <= '0';
-    elsif(CLK = '1') then
+    -- CLK'event muss für die Syntetisierung angegeben werden, um wirklich aud eine Steigenden Flanke zu reagieren
+    elsif(CLK'event and CLK = '1') then
       Q <= D_i;
     end if;
   end process p_D;

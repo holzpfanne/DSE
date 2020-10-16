@@ -2,10 +2,11 @@ onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate -format Logic /tb_JKD/CLK
 add wave -noupdate -format Logic /tb_JKD/D_i
-add wave -noupdate -format Logic /tb_JKD/R
+add wave -noupdate -format Logic /tb_JKD/R_D
 add wave -noupdate -format Logic /tb_JKD/Q_D
 add wave -noupdate -format Logic /tb_JKD/J
 add wave -noupdate -format Logic /tb_JKD/K
+add wave -noupdate -format Logic /tb_JKD/R_JK
 add wave -noupdate -format Logic /tb_JKD/Q_JK
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {0 ps}
