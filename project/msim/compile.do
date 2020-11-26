@@ -1,0 +1,12 @@
+vcom ../vhdl/alu_.vhd
+vcom ../vhdl/alu_rtl.vhd
+vcom ../vhdl/alu_rtl_cfg.vhd
+vcom ../vhdl/calc_ctrl_.vhd
+vcom ../vhdl/calc_ctrl_rtl.vhd
+vcom ../vhdl/calc_ctrl_rtl_cfg.vhd
+vcom ../vhdl/io_ctrl_.vhd
+vcom ../vhdl/io_ctrl_rtl.vhd
+vcom ../vhdl/io_ctrl_rtl_cfg.vhd
+vcom ../vhdl/calculator_.vhd
+vcom ../vhdl/calculator_rtl.vhd
+vcom ../vhdl/calculator_rtl_cfg.vhd
