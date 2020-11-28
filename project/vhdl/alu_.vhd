@@ -9,7 +9,7 @@ use IEEE.std_logic_1164.all;
 
 entity alu is
   port (clk_i   :  in std_logic;      -- clock
-        reste_i :  in std_logic;      -- async reset
+        reset_i :  in std_logic;      -- async reset
     
         op1_i   :  in std_logic_vector(11 downto 0);    -- OPT1_i
         op2_i   :  in std_logic_vector(11 downto 0);    -- OPT2_i
