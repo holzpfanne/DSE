@@ -31,27 +31,11 @@ use IEEE.std_logic_1164.all;
 
 architecture rtl of calc is
 
-    signal button0_state_vector  : std_logic_vector(N-1 downto 0);
-    signal button1_state_vector  : std_logic_vector(N-1 downto 0);
-    signal button2_state_vector  : std_logic_vector(N-1 downto 0);
-    signal button3_state_vector  : std_logic_vector(N-1 downto 0);
+    type button_array is array (0 to 3, 0 to N-1) of std_logic;
+    signal buttons  : button_array;
 
-    signal switch0_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch1_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch2_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch3_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch4_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch5_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch6_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch7_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch8_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch9_state_vector  : std_logic_vector(N-1 downto 0);
-    signal switch10_state_vector : std_logic_vector(N-1 downto 0);
-    signal switch11_state_vector : std_logic_vector(N-1 downto 0);
-    signal switch12_state_vector : std_logic_vector(N-1 downto 0);
-    signal switch13_state_vector : std_logic_vector(N-1 downto 0);
-    signal switch14_state_vector : std_logic_vector(N-1 downto 0);
-    signal switch15_state_vector : std_logic_vector(N-1 downto 0);
+    type switch_array is array (0 to 15, 0 to N-1) of std_logic;
+    signal switchs : switch_array;
     
 begin
 
@@ -67,20 +51,49 @@ begin
     end process led;
 
     button_debouncing:process(clk_i, reset_i)
+        variable button_low : std_logic;
+        variable button_high : std_logic;
     begin
         if reset_i = '1' then
-            pbsync_o <= "0000";
+            pbsync_o <= "UUUU";
         elsif clk_i'event and clk_i = '1' then
+            -- shift button state in beginning of reg
+            shift_buttons : for i in 0 to 3 loop
+                shift : for j in 0 to N-2 loop
+                    buttons(i, j+1) <= buttons(i, j);
+                end loop;
+                buttons(i, 0) <= pb_i(i);
+            end loop;
 
+            for i in 0 to 3 loop
+                button_low := '0';
+                button_high := '1';
+                for j in 0 to N-1 loop
+                    button_low  := button_low or buttons(i,j);
+                    button_high := button_low and buttons(i,j);
+                end loop;
+                if button_low = '0' then 
+                    pbsync_o(i) <= '0';
+                elsif button_high = '1' then
+                    pbsync_o(i) <= '1';
+                end if;
+            end loop;
+            
         end if;
     end process button_debouncing;
 
     switch_debouncing:process(clk_i, reset_i)
     begin
         if reset_i = '1' then
-            swsync_o <= "0000000000000000";
+            swsync_o <= "UUUUUUUUUUUUUUUU";
         elsif clk_i'event and clk_i = '1' then
-
+            -- shift switch state in beginning of reg
+            shift_switches : for i in 0 to 3 loop
+                shift : for j in 0 to N-2 loop
+                    switchs(i, j+1) <= switchs(i, j);
+                end loop;
+                switchs(i, 0) <= pb_i(i);
+            end loop;
         end if;
     end process switch_debouncing;
    
