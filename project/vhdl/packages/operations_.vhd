@@ -9,9 +9,9 @@ package operations is
                      signal overflow : out std_logic);
 
     procedure f_sqrt (signal op1 : in std_logic_vector(11 downto 0);
-                     signal op2 : in std_logic_vector(11 downto 0);
-                     signal result : out std_logic_vector(15 downto 0);
-                     signal overflow : out std_logic);
+                      signal op2 : in std_logic_vector(11 downto 0);
+                      signal result : out std_logic_vector(15 downto 0);
+                      signal overflow : out std_logic);
 
     procedure f_not (signal op1 : in std_logic_vector(11 downto 0);
                      signal op2 : in std_logic_vector(11 downto 0);
@@ -41,9 +41,9 @@ package body operations is
     end procedure;
 
     procedure f_sqrt (signal op1 : in std_logic_vector(11 downto 0);
-                     signal op2 : in std_logic_vector(11 downto 0);
-                     signal result : out std_logic_vector(15 downto 0);
-                     signal overflow : out std_logic) is
+                      signal op2 : in std_logic_vector(11 downto 0);
+                      signal result : out std_logic_vector(15 downto 0);
+                      signal overflow : out std_logic) is
   
     variable subtractor : unsigned(15 downto 0) := "0000000000000001";
     variable square : unsigned(15 downto 0);
