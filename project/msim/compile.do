@@ -1,3 +1,4 @@
+vcom ../vhdl/packages/project_defines.vhd
 vcom ../vhdl/alu_.vhd
 vcom ../vhdl/alu_rtl.vhd
 vcom ../vhdl/alu_rtl_cfg.vhd
