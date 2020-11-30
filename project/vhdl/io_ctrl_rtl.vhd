@@ -6,6 +6,7 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
+use IEEE.std_logic_arith.all;
 
 -- clk_i   :  in std_logic;      -- clock
 -- reset_i :  in std_logic;      -- async reset
@@ -32,12 +33,12 @@ use IEEE.std_logic_1164.all;
 architecture rtl of calc is
 
     type button_array is array (0 to 3, 0 to N-1) of std_logic;
-    signal buttons  : button_array;
+    signal buttons : button_array;
 
     type switch_array is array (0 to 15, 0 to N-1) of std_logic;
     signal switchs : switch_array;
 
-    signal digit_select : std_logic_vector(1 downto 0);
+    signal digit_select : unsigned(1 downto 0);
     
 begin
 
@@ -58,7 +59,7 @@ begin
     begin
         if reset_i = '1' then
             pbsync_o <= "0000";
-            button_array := (others => (others '0'));
+            buttons <= ((others=>(others=>'0')));
         elsif clk_i'event and clk_i = '1' then
             -- shift button state in beginning of reg
             shift_buttons : for i in 0 to 3 loop
@@ -86,10 +87,12 @@ begin
     end process button_debouncing;
 
     switch_debouncing:process(clk_i, reset_i)
+        variable switch_low : std_logic;
+        variable switch_high : std_logic;
     begin
         if reset_i = '1' then
             swsync_o <= "0000000000000000";
-            switch_array := (others => (others '0'));
+            switchs <= ((others=>(others=>'0')));
         elsif clk_i'event and clk_i = '1' then
             -- shift switch state in beginning of reg
             shift_switches : for i in 0 to 15 loop
@@ -100,15 +103,15 @@ begin
             end loop;
 
             for i in 0 to 15 loop
-                button_low := '0';
-                button_high := '1';
+                switch_low := '0';
+                switch_high := '1';
                 for j in 0 to N-1 loop
-                    button_low  := button_low or switchs(i,j);
-                    button_high := button_low and switchs(i,j);
+                    switch_low  := switch_low or switchs(i,j);
+                    switch_high := switch_high and switchs(i,j);
                 end loop;
-                if button_low = '0' then 
+                if switch_low = '0' then 
                     swsync_o(i) <= '0';
-                elsif button_high = '1' then
+                elsif switch_high = '1' then
                     swsync_o(i) <= '1';
                 end if;
             end loop;
@@ -123,13 +126,13 @@ begin
             ss_o <= "00000000";
         elsif clk_i'event and clk_i = '1' then
             -- write digit to selects section
-            if digit_select = "01" then
+            if digit_select = 1 then
                 ss_sel_o <= "0010";
                 ss_o <= dig1_i;
-            elsif digit_select = "10" then
+            elsif digit_select = 2 then
                 ss_sel_o <= "0100";
                 ss_o <= dig2_i;
-            elsif digit_select = "11" then
+            elsif digit_select = 3 then
                 ss_sel_o <= "1000";
                 ss_o <= dig2_i;
             else 
@@ -137,8 +140,11 @@ begin
             ss_o <= dig0_i;
             end if;
 
-            -- increment digit_select if "11" + '1' -> "00" intendet
-            digit_select <= digit_select + '1';
+            -- increment digit_select if 3 + 1 -> 0 intendet
+            digit_select <= digit_select + 1;
+            --if digit_select == 4 then
+            --    digit_select <= 0;
+            --end if;
         end if;
     end process digits_write;
    
