@@ -9,7 +9,7 @@ use IEEE.std_logic_1164.all;
 
 entity calc_ctrl is
   port (clk_i   :  in std_logic;      -- clock
-        reste_i :  in std_logic;      -- async reset
+        reset_i :  in std_logic;      -- async reset
     
         -- alu
         op1_o   :  out std_logic_vector(11 downto 0);    -- OPT1_i
