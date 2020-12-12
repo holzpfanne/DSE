@@ -31,28 +31,30 @@ architecture rtl of alu is
 
 begin
 
-    p_calc: process(clk_i, reset_i)
+    p_execute : process(start_i, reset_i)
     begin
-        
-        sign_o <= '0';
-        overflow_o <= '0';
-        error_o <= '0';
         if reset_i = '1' then
+            result_o <= (others => '0');
+            sign_o <= '0';
+            overflow_o <= '0';
+            error_o <= '0';
             finished_o <= '0';
-
-        elsif clk_i'event and clk_i = '1' then 
-            if start_i = '1' then
-                case opttype_i is
-                    when o_add => f_add(op1_i, op2_i, result_o, overflow_o);
-                    when o_sqrt => f_sqrt(op1_i, op2_i, result_o, overflow_o);
-                    when o_not => f_not(op1_i, op2_i, result_o, overflow_o);
-                    when o_xor => f_xor(op1_i, op2_i, result_o, overflow_o);
-                    when others => error_o <= '1';
-                end case;
-            end if;
+        elsif start_i'event and start_i = '1' then
+            sign_o <= '0';
+            overflow_o <= '0';
+            error_o <= '0';
+            result_o <= (others => '0');
+            finished_o <= '0';
+            case opttype_i is
+                when o_add => f_add(op1_i, op2_i, result_o, overflow_o);
+                when o_sqrt => f_sqrt(op1_i, op2_i, result_o, overflow_o);
+                when o_not => f_not(op1_i, op2_i, result_o, overflow_o);
+                when o_xor => f_xor(op1_i, op2_i, result_o, overflow_o);
+                when others => error_o <= '1';
+            end case;
+            finished_o <= '1';
         end if;
-
-    end process p_calc;
+    end process p_execute;
   
 
 end rtl;
