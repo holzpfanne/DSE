@@ -37,6 +37,7 @@ package body operations is
     begin 
         sum := unsigned(op1) + conv_unsigned(unsigned(op2),13);
         overflow <= std_logic(sum(12));
+        -- overflow <= '1';
         result <= std_logic_vector(conv_unsigned(sum(11 downto 0),16)); 
     end procedure;
 
@@ -46,11 +47,14 @@ package body operations is
                       signal overflow : out std_logic) is
   
     variable subtractor : unsigned(15 downto 0) := "0000000000000001";
-    variable square : unsigned(15 downto 0);
+    variable square : unsigned(15 downto 0) := "0000000000000000";
     variable root : unsigned(15 downto 0) := "0000000000000000";
     begin 
         square := conv_unsigned(unsigned(op1),16);
-        while subtractor < square loop
+        l_root : for i in 0 to 63 loop
+            if subtractor > square then
+                exit l_root;
+            end if;
             root := root + 1;
             square := square - subtractor;
             subtractor := subtractor + 2;
