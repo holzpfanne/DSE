@@ -43,9 +43,27 @@ architecture rtl of calc_ctrl is
     type sub_state is (SET_OP1_S, SET_OP2_S, SET_OPT_S);
     signal state_now : t_state;
     signal sub_state_now : sub_state;
+
+    signal counter : unsigned(7 downto 0);
+    signal post_clk_logic : std_logic;
 begin
     
-    process(clk_i, reset_i)
+    clock_scaler:process(clk_i, reset_i)
+    begin
+        if reset_i = '1' then
+            counter <= (others => '0');
+        elsif clk_i'event and clk_i = '1' then
+            counter <= counter + 1;
+            if counter = 0 then
+                post_clk_logic <= '1';
+            else 
+                post_clk_logic <= '0';
+            end if;
+        end if;
+
+    end process clock_scaler;
+    
+    process(post_clk_logic, reset_i)
     begin
         if reset_i = '1' then
             state_now <= RESET_S;
@@ -61,7 +79,7 @@ begin
             opttype_o <= (others=>'0');
             start_o <= '0';
 
-        elsif clk_i'event and clk_i = '1' then
+        elsif post_clk_logic'event and post_clk_logic = '1' then
             if state_now = CALCULATE_S then
                 if finished_i = '1' then
                     start_o <= '0';
@@ -77,23 +95,36 @@ begin
             elsif state_now = RESULT_S then
                 if pbsync_i(2 downto 0) /= "000" then
                     state_now <= SET_S;
+                    led_o <= "0000000000000000"; 
                 else
                     dig3_o <= digits(0);
-                    dig0_o <= digits(conv_integer(unsigned(result_i(3 downto 0))));
-                    dig1_o <= digits(conv_integer(unsigned(result_i(7 downto 4))));
-                    dig2_o <= digits(conv_integer(unsigned(result_i(11 downto 8))));
+                    if error_i = '1' then
+                        dig2_o <= digits(14); -- E
+                        dig1_o <= "01010000"; -- r
+                        dig0_o <= "01010000"; -- r
+                    elsif overflow_i = '1' then
+                        dig2_o <= digits(0); -- O
+                        dig1_o <= digits(15); -- F
+                        dig0_o <= "00111000"; -- L
+                    else
+                        dig0_o <= digits(conv_integer(unsigned(result_i(3 downto 0))));
+                        dig1_o <= digits(conv_integer(unsigned(result_i(7 downto 4))));
+                        dig2_o <= digits(conv_integer(unsigned(result_i(11 downto 8))));
+                    end if;
+                    led_o(15) <= '1';
                 end if;
 
             elsif state_now = SET_S then
-                if (BTND and pbsync_i) = BTND then
+                if (B_CALC and pbsync_i) = B_CALC then
+                    start_o <= '1';
                     state_now <= CALCULATE_S;
                 else
                     -- sat sub state    
-                    if (BTNR and pbsync_i) = BTNR then
+                    if (B_OP2 and pbsync_i) = B_OP2 then
                         sub_state_now <= SET_OP2_S;
-                    elsif (BTNC and pbsync_i) = BTNC then
+                    elsif (B_OPT and pbsync_i) = B_OPT then
                         sub_state_now <= SET_OPT_S;
-                    elsif (BTNL and pbsync_i) = BTNL then
+                    elsif (B_OP1 and pbsync_i) = B_OP1 then
                         sub_state_now <= SET_OP1_S;
                     else 
                         sub_state_now <= sub_state_now;
@@ -158,6 +189,9 @@ begin
                 op2_o  <= (others=>'0');
                 opttype_o <= (others=>'0');
                 start_o <= '0';
+                if reset_i = '0' then
+                    state_now <= CALCULATE_S;
+                end if;
             end if;
         end if;
     end process;
