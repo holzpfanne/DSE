@@ -7,8 +7,8 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-entity calc is
-  generic (N : natural := 32); -- length of button & switch reg to unbounce, min length 3
+entity io_ctrl is
+  generic (N : natural := 8); -- length of button & switch reg to unbounce, min length 3
 
   port (clk_i   :  in std_logic;      -- clock
         reset_i :  in std_logic;      -- async reset
@@ -32,5 +32,5 @@ entity calc is
         
         led_i   :  in std_logic_vector(15 downto 0)
         );
-end calc;
+end io_ctrl;
 
