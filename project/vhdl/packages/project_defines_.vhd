@@ -25,7 +25,7 @@ package project_defines is
 
     type hex_digits is array (0 to 15) of std_logic_vector(7 downto 0);
     constant digits : hex_digits := ("00111111", -- 0
-                                     "00111111", -- 1
+                                     "00000110", -- 1
                                      "01011011", -- 2
                                      "01001111", -- 3
                                      "01100110", -- 4
@@ -43,10 +43,10 @@ package project_defines is
                                      );
 
     -- buttons
-    constant BTNR : std_logic_vector(3 downto 0) := "0001";
-    constant BTNC : std_logic_vector(3 downto 0) := "0010";
-    constant BTNL : std_logic_vector(3 downto 0) := "0100";
-    constant BTND : std_logic_vector(3 downto 0) := "1000";
+    constant B_OP1 : std_logic_vector(3 downto 0) := "0001";
+    constant B_OP2 : std_logic_vector(3 downto 0) := "0010";
+    constant B_OPT : std_logic_vector(3 downto 0) := "0100";
+    constant B_CALC : std_logic_vector(3 downto 0) := "1000";
 
 end package project_defines;
 
