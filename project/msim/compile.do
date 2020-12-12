@@ -12,3 +12,6 @@ vcom ../vhdl/io_ctrl_rtl_cfg.vhd
 vcom ../vhdl/calculator_.vhd
 vcom ../vhdl/calculator_rtl.vhd
 vcom ../vhdl/calculator_rtl_cfg.vhd
+vcom ../tb/tb_calculator_.vhd
+vcom ../tb/tb_calculator_sim.vhd
+vcom ../tb/tb_calculator_sim_cfg.vhd
