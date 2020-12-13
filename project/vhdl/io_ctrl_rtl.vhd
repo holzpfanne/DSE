@@ -8,33 +8,13 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_arith.all;
 
--- clk_i   :  in std_logic;      -- clock
--- reset_i :  in std_logic;      -- async reset
--- 
--- ss_o    : out std_logic_vector(7 downto 0);
--- ss_sel_o: out std_logic_vector(3 downto 0);    -- Display
--- 
--- led_o   : out std_logic_vector(15 downto 0);   -- LED's
--- 
--- pb_i    :  in std_logic_vector(3 downto 0);    -- buttons
--- sw_i    :  in std_logic_vector(15 downto 0);    -- switches
--- 
---         -- intern
--- swsync_o: out std_logic_vector(15 downto 0);
--- pbsync_o: out std_logic_vector(3 downto 0);
--- 
--- dig0_i  :  in std_logic_vector(7 downto 0);
--- dig1_i  :  in std_logic_vector(7 downto 0);
--- dig2_i  :  in std_logic_vector(7 downto 0);
--- dig3_i  :  in std_logic_vector(7 downto 0);
---         
--- led_i   :  in std_logic_vector(15 downto 0)
-
 architecture rtl of io_ctrl is
 
+    -- button FIFO's
     type button_array is array (0 to 3, 0 to N-1) of std_logic;
     signal buttons : button_array;
 
+    -- switch FIFO's
     type switch_array is array (0 to 15, 0 to N-1) of std_logic;
     signal switchs : switch_array;
 
@@ -45,6 +25,7 @@ architecture rtl of io_ctrl is
     signal post_clk_debounds : std_logic;
     
 begin
+    -- scal clock down 
     clock_scaler:process(clk_i, reset_i)
     begin
         if reset_i = '1' then
@@ -66,6 +47,7 @@ begin
 
     end process clock_scaler;
     
+    -- write leds out
     led:process(clk_i, reset_i)
     begin
         if reset_i = '1' then
@@ -77,6 +59,8 @@ begin
 
     end process led;
 
+    -- with every clock the state of the button's is pushed in a FIFO
+    -- if the FIFO contains only 0's or 1's the status pbsync_o is updated
     button_debouncing:process(post_clk_debounds, reset_i)
         variable button_low : std_logic;
         variable button_high : std_logic;
@@ -93,6 +77,7 @@ begin
                 buttons(i, 0) <= pb_i(i);
             end loop;
 
+            -- check if FIFO's are only 0's or 1's
             for i in 0 to 3 loop
                 button_low := '0';
                 button_high := '1';
@@ -110,6 +95,8 @@ begin
         end if;
     end process button_debouncing;
 
+    -- with every clock the state of the swiches is pushed in a FIFO
+    -- if the FIFO contains only 0's or 1's the status swsync_o is updated
     switch_debouncing:process(post_clk_debounds, reset_i)
         variable switch_low : std_logic;
         variable switch_high : std_logic;
@@ -126,6 +113,7 @@ begin
                 switchs(i, 0) <= sw_i(i);
             end loop;
 
+            -- check if FIFO's are only 0's or 1's
             for i in 0 to 15 loop
                 switch_low := '0';
                 switch_high := '1';
@@ -142,6 +130,7 @@ begin
         end if;
     end process switch_debouncing;
 
+    -- write every digit after the other
     digits_write:process(post_clk_digits, reset_i)
     begin
         if reset_i = '1' then
@@ -169,7 +158,5 @@ begin
             
         end if;
     end process digits_write;
-
-
    
 end rtl;

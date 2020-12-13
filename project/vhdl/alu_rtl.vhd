@@ -12,25 +12,14 @@ library work;
 use work.project_defines.all;
 use work.operations.all;
 
--- clk_i   :  in std_logic;      -- clock
--- reset_i :  in std_logic;      -- async reset
--- 
--- op1_i   :  in std_logic_vector(11 downto 0);    -- OPT1_i
--- op2_i   :  in std_logic_vector(11 downto 0);    -- OPT2_i
--- opttype_i:  in std_logic_vector(3 downto 0);     -- opt
--- start_i  :  in std_logic;
--- 
--- finished_o : out std_logic;
--- result_o   : out std_logic_vector(15 downto 0);
--- sign_o     : out std_logic;
--- overflow_o : out std_logic;
--- error_o    : out std_logic;
+-- if start_i rises the specifed operation will be performed
+-- if the operation is finished or fail finished_o will be set to 1
 
+-- operations them self are defined in ../packages/operations_.vhd
 
 architecture rtl of alu is
 
 begin
-
     p_execute : process(start_i, reset_i)
     begin
         if reset_i = '1' then

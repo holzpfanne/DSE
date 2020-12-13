@@ -12,35 +12,10 @@ library work;
 use work.project_defines.all;
 use work.operations.all;
 
--- clk_i   :  in std_logic;      -- clock
--- reset_i :  in std_logic;      -- async reset
---     
--- -- alu
--- op1_o   :  out std_logic_vector(11 downto 0);    -- OPT1_i
--- op2_o   :  out std_logic_vector(11 downto 0);    -- OPT2_i
--- opttype_o:  out std_logic_vector(3 downto 0);     -- opt
--- start_o  :  out std_logic;
--- 
--- finished_i : in std_logic;
--- result_i  : in std_logic_vector(15 downto 0);
--- sign_i     : in std_logic;
--- overflow_i : in std_logic;
--- error_i    : in std_logic;
--- 
--- -- io_ctrl
--- swsync_i:  in std_logic_vector(15 downto 0);
--- pbsync_i:  in std_logic_vector(3 downto 0);
--- 
--- dig0_o  : out std_logic_vector(7 downto 0);
--- dig1_o  : out std_logic_vector(7 downto 0);
--- dig2_o  : out std_logic_vector(7 downto 0);
--- dig3_o  : out std_logic_vector(7 downto 0);
---         
--- led_o   : out std_logic_vector(15 downto 0)
-
 architecture rtl of calc_ctrl is
     type t_state is (RESET_S, SET_S, CALCULATE_S, RESULT_S);
     type sub_state is (SET_OP1_S, SET_OP2_S, SET_OPT_S);
+    -- the SET state has three sub states in order to define if op1, op2 or opttype is set
     signal state_now : t_state;
     signal sub_state_now : sub_state;
 
@@ -48,6 +23,7 @@ architecture rtl of calc_ctrl is
     signal post_clk_logic : std_logic;
 begin
     
+    -- scale clock
     clock_scaler:process(clk_i, reset_i)
     begin
         if reset_i = '1' then
@@ -80,8 +56,10 @@ begin
             start_o <= '0';
 
         elsif post_clk_logic'event and post_clk_logic = '1' then
+            -- waiting for operation to finish
             if state_now = CALCULATE_S then
                 if finished_i = '1' then
+                    -- operation finished
                     start_o <= '0';
                     state_now <= RESULT_S;
                 else 
@@ -93,20 +71,21 @@ begin
                 end if;
 
             elsif state_now = RESULT_S then
+                -- display result or error or overflow
                 if pbsync_i(2 downto 0) /= "000" then
                     state_now <= SET_S;
                     led_o <= "0000000000000000"; 
                 else
                     dig3_o <= digits(0);
-                    if error_i = '1' then
+                    if error_i = '1' then -- ERROR
                         dig2_o <= digits(14); -- E
                         dig1_o <= "01010000"; -- r
                         dig0_o <= "01010000"; -- r
-                    elsif overflow_i = '1' then
+                    elsif overflow_i = '1' then -- Overflow
                         dig2_o <= digits(0); -- O
                         dig1_o <= digits(15); -- F
                         dig0_o <= "00111000"; -- L
-                    else
+                    else                            -- result
                         dig0_o <= digits(conv_integer(unsigned(result_i(3 downto 0))));
                         dig1_o <= digits(conv_integer(unsigned(result_i(7 downto 4))));
                         dig2_o <= digits(conv_integer(unsigned(result_i(11 downto 8))));
@@ -116,6 +95,7 @@ begin
 
             elsif state_now = SET_S then
                 if (B_CALC and pbsync_i) = B_CALC then
+                    -- start operation
                     start_o <= '1';
                     state_now <= CALCULATE_S;
                 else
@@ -190,6 +170,7 @@ begin
                 opttype_o <= (others=>'0');
                 start_o <= '0';
                 if reset_i = '0' then
+                    -- after reset swich to calculation
                     state_now <= CALCULATE_S;
                 end if;
             end if;
