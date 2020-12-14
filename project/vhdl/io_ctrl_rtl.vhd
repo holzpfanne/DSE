@@ -18,8 +18,6 @@ architecture rtl of io_ctrl is
     type switch_array is array (0 to 15, 0 to N-1) of std_logic;
     signal switchs : switch_array;
 
-    signal digit_select : unsigned(1 downto 0);
-
     signal counter : unsigned(14 downto 0);
     signal post_clk_digits : std_logic;
     signal post_clk_debounds : std_logic;
@@ -132,29 +130,30 @@ begin
 
     -- write every digit after the other
     digits_write:process(post_clk_digits, reset_i)
+        variable digit_select : unsigned(1 downto 0);
     begin
         if reset_i = '1' then
-            digit_select <= "00";
+            digit_select := "00";
             ss_sel_o <= not "0000";
             ss_o <= "00000000";
         elsif post_clk_digits'event and post_clk_digits = '1' then
                 -- write digit to selects section
             if digit_select = 1 then
-                ss_sel_o <= not "0010";
                 ss_o <= not dig1_i;
+                ss_sel_o <= not "0010";
             elsif digit_select = 2 then
-                ss_sel_o <= not "0100";
                 ss_o <= not dig2_i;
+                ss_sel_o <= not "0100";
             elsif digit_select = 3 then
-                ss_sel_o <= not "1000";
                 ss_o <= not dig3_i;
+                ss_sel_o <= not "1000";
             else 
-                ss_sel_o <= not "0001";
                 ss_o <= not dig0_i;
+                ss_sel_o <= not "0001";
             end if;
 
             -- increment digit_select if 3 + 1 -> 0 : intendet
-            digit_select <= digit_select + 1;
+            digit_select := digit_select + 1;
             
         end if;
     end process digits_write;
